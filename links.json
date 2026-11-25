@@ -21,7 +21,7 @@
         },
         {
           "id": "atlas-full-demo",
-          "title": "Full demo",
+          "title": "Kitchen full experience",
           "note": "A signed-in member with the full experience.",
           "url": "https://pr-daniel-concept-atlas-19970.demo.useorigin.com/atlas-concept",
           "added": "2026-11-25T12:49:04-05:00",
@@ -37,7 +37,7 @@
         },
         {
           "id": "atlas-onboarding",
-          "title": "Onboarding",
+          "title": "Kitchen onboarding",
           "note": "A new member, from sign-up to the feed.",
           "url": "https://pr-daniel-concept-atlas-20076.demo.useorigin.com/atlas-concept?flow=new",
           "added": "2026-11-25T12:49:04-05:00",
@@ -76,5 +76,5 @@
     "url": "https://testflight.apple.com/join/aUQUejW3",
     "note": "To view in the Origin Demo app, copy the link, hold the Dev badge, and paste it into Web app url."
   },
-  "version": 5
+  "version": 6
 }
