@@ -28,7 +28,7 @@ h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:
 .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .t{font-size:17px;line-height:24px;font-weight:600}
 .n{color:var(--text-2);font-size:14px;line-height:20px;margin-top:4px}
-.d{color:var(--text-3);font-size:12px;line-height:18px;margin-top:14px;display:flex;justify-content:space-between;gap:12px}
+.d{color:var(--text-3);font-size:12px;line-height:18px;margin-top:14px;display:flex;flex-direction:column;align-items:flex-start;gap:2px}
 .new{flex:none;font-size:11px;line-height:16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:#fff;color:#000;border-radius:6px;padding:2px 8px}
 .empty{color:var(--text-3);padding:24px 0}
 #viewer{position:fixed;inset:0;background:#000;display:none}
@@ -121,7 +121,7 @@ $('aSafari').onclick=()=>{seen[cur.id]=1;save();setTimeout(()=>{$('wrap2').style
   const set=t=>{if(t==='light')document.documentElement.dataset.theme='light';else delete document.documentElement.dataset.theme;if(m)m.content=t==='light'?'#f5f5f7':'#050505';try{localStorage.setItem('theme',t)}catch(e){}};
   set(document.documentElement.dataset.theme==='light'?'light':'dark');
   i.onclick=()=>set(document.documentElement.dataset.theme==='light'?'dark':'light')})();
-const V=19;let data=null;
+const V=20;let data=null;
 function render(){
   if(!data)return;const g=(data.groups||{})[group]||(data.groups||{}).everyone||{title:'Prototypes',items:[]};
   $('h').textContent=g.title||'Prototypes';
@@ -132,7 +132,7 @@ function render(){
   const c=$('cards');c.innerHTML='';
   if(!items.length){c.innerHTML='<div class="empty">Nothing here yet. New prototypes will appear on this screen.</div>'}
   for(const it of items){const b=document.createElement('button');b.className='card';
-    b.innerHTML='<div class="head"><img class="pi" alt=""><div class="body"><div class="row"><div class="t"></div></div><div class="n"></div></div></div><div class="d"></div><div class="st" data-u=""><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><path d="M8 12h8"/></svg><span></span></div>';b.querySelector('.st').dataset.u=it.url;
+    b.innerHTML='<div class="head"><img class="pi" alt=""><div class="body"><div class="row"><div class="t"></div></div><div class="n"></div><div class="d"></div></div></div><div class="st" data-u=""><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><path d="M8 12h8"/></svg><span></span></div>';b.querySelector('.st').dataset.u=it.url;
     b.querySelector('.t').textContent=it.title;const pi=b.querySelector('.pi');if(it.icon)pi.src=it.icon;else pi.remove();b.querySelector('.n').textContent=it.note||'';const up=(srv[it.url]||{}).modified||it.updated;b.querySelector('.d').innerHTML='<span></span><span></span>';b.querySelector('.d').children[0].textContent='Added '+day(it.added);if(up)b.querySelector('.d').children[1].textContent='Last updated '+fmt(up);applySt(b.querySelector('.st'));
     b.onclick=()=>sheet(it);c.appendChild(b)}
   (data.footer||[]).forEach(t=>{const p=document.createElement('p');p.className='foot';p.textContent=t;c.appendChild(p)});
