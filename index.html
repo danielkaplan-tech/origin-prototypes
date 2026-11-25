@@ -17,8 +17,8 @@
 html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font:400 16px/24px var(--sans);-webkit-font-smoothing:antialiased;overscroll-behavior:none}
 #list{min-height:100%;padding:calc(env(safe-area-inset-top) + 72px) 16px calc(env(safe-area-inset-bottom) + 32px)}
 h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:0}
-.top{display:flex;flex-direction:row-reverse;justify-content:flex-end;align-items:center;gap:14px;margin:0 0 20px}
-.appicon{width:44px;height:44px;border-radius:11px;flex:none;box-shadow:0 0 0 1px var(--line)}
+.top{display:flex;flex-direction:column-reverse;align-items:flex-start;gap:16px;margin:0 0 20px}
+.appicon{width:48px;height:48px;border-radius:12px;flex:none;box-shadow:0 0 0 1px var(--line)}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 20px;min-height:36px}
 .sub{color:var(--text-3);font-size:14px;line-height:20px;margin:0}
 .sortw{position:relative;flex:none}
@@ -34,6 +34,8 @@ h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:
 #viewer{position:fixed;inset:0;background:#000;display:none}
 #viewer iframe{position:absolute;left:0;right:0;top:env(safe-area-inset-top);bottom:env(safe-area-inset-bottom);width:100%;height:calc(100% - env(safe-area-inset-top) - env(safe-area-inset-bottom));border:0;background:#000}
 
+.foot{margin:12px 4px 0;font-size:13px;line-height:20px;color:var(--text-3)}
+.foot:first-of-type{margin-top:32px}
 .card.app{background:none;border:0;border-radius:0;padding:0 4px;margin:32px 0 0;cursor:pointer}
 .app .t{font-size:15px;line-height:20px}
 .app .n{font-size:13px;line-height:20px;color:var(--text-3);margin-top:0}
@@ -71,7 +73,7 @@ h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:
 <div id="wrap"><div id="bd"></div><div id="sheet"><div class="sc"><div class="grab"></div><div class="t" id="st"></div><div class="n" id="sn"></div>
 <button class="act primary" id="aOpen">Open</button><button class="act" id="aCopy">Copy link</button><a class="act" id="aSafari" target="_blank" rel="noopener" style="text-decoration:none;line-height:52px;text-align:center">Open in Safari</a>
 <p class="acct" id="acct"></p>
-<p class="hint">To review it in the Origin Demo app: copy the link, hold the Dev badge in the app, and paste it into Web app url. To keep one on its own icon: open it in Safari, then Share, then Add to Home Screen.</p>
+<p class="hint">To keep one on your home screen, open it in Safari, tap Share, then Add to Home Screen. Pasting into the demo environment is not working right now.</p>
 <div class="chgw" id="cw"><p class="chgh">What changed, compared with today's Origin</p><ul class="chg" id="cl"></ul></div></div><div class="fade"></div></div></div><div id="toast"></div>
 <script>
 const $=id=>document.getElementById(id);
@@ -109,7 +111,7 @@ $('aSafari').onclick=()=>{seen[cur.id]=1;save();setTimeout(closeSheet,300)};
   const set=t=>{if(t==='light')document.documentElement.dataset.theme='light';else delete document.documentElement.dataset.theme;if(m)m.content=t==='light'?'#f5f5f7':'#050505';try{localStorage.setItem('theme',t)}catch(e){}};
   set(document.documentElement.dataset.theme==='light'?'light':'dark');
   i.onclick=()=>set(document.documentElement.dataset.theme==='light'?'dark':'light')})();
-const V=13;let data=null;
+const V=14;let data=null;
 function render(){
   if(!data)return;const g=(data.groups||{})[group]||(data.groups||{}).everyone||{title:'Prototypes',items:[]};
   $('h').textContent=g.title||'Prototypes';
@@ -123,7 +125,7 @@ function render(){
     b.innerHTML='<div class="row"><div class="t"></div></div><div class="n"></div><div class="d"></div><div class="st" data-u=""><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><path d="M8 12h8"/></svg><span></span></div>';b.querySelector('.st').dataset.u=it.url;
     b.querySelector('.t').textContent=it.title;b.querySelector('.n').textContent=it.note||'';const up=(srv[it.url]||{}).modified||it.updated;b.querySelector('.d').innerHTML='<span></span><span></span>';b.querySelector('.d').children[0].textContent='Added '+day(it.added);if(up)b.querySelector('.d').children[1].textContent='Last updated '+fmt(up);applySt(b.querySelector('.st'));
     b.onclick=()=>sheet(it);c.appendChild(b)}
-  const ap=data.app;if(ap&&ap.url){const a=document.createElement('a');a.className='card app';a.href=ap.url;a.style.textDecoration='none';a.innerHTML='<div class="n"></div>';a.querySelector('.n').textContent=ap.note||'';c.appendChild(a)}
+  (data.footer||[]).forEach(t=>{const p=document.createElement('p');p.className='foot';p.textContent=t;c.appendChild(p)});
   
 }
 

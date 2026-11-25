@@ -75,9 +75,9 @@
       ]
     }
   },
-  "app": {
-    "url": "https://testflight.apple.com/join/aUQUejW3",
-    "note": "To view in the Origin Demo app, copy the link, hold the Dev badge, and paste it into Web app url."
-  },
-  "version": 13
+  "version": 14,
+  "footer": [
+    "To keep this page on your home screen, open it in Safari, tap Share, then Add to Home Screen.",
+    "Pasting links into the demo environment is not working right now."
+  ]
 }
