@@ -5,7 +5,7 @@
       "items": [
         {
           "id": "id-protection-setup",
-          "title": "ID Protection setup",
+          "title": "ID Protection: Setup",
           "note": "Opens at the start of setup.",
           "url": "https://pr-design-id-protection-20211.demo.useorigin.com/overview?setupStep=start",
           "added": "2026-11-25T12:23:41-05:00",
@@ -21,7 +21,7 @@
         },
         {
           "id": "atlas-full-demo",
-          "title": "Kitchen full experience",
+          "title": "Kitchen: Full experience",
           "note": "A signed-in member with the full experience.",
           "url": "https://pr-daniel-concept-atlas-19970.demo.useorigin.com/atlas-concept",
           "added": "2026-11-25T12:49:04-05:00",
@@ -37,7 +37,7 @@
         },
         {
           "id": "atlas-onboarding",
-          "title": "Kitchen onboarding",
+          "title": "Kitchen: Onboarding",
           "note": "A new member, from sign-up to the feed.",
           "url": "https://pr-daniel-concept-atlas-20076.demo.useorigin.com/atlas-concept?flow=new",
           "added": "2026-11-25T12:49:04-05:00",
@@ -51,7 +51,7 @@
         },
         {
           "id": "atlas-nav-on",
-          "title": "Navigation",
+          "title": "Product: Navigation",
           "note": "The new bottom navigation on today's Origin app.",
           "url": "https://pr-design-atlas-nav-on-20302.demo.useorigin.com",
           "added": "2026-11-25T12:55:02-05:00",
@@ -76,5 +76,5 @@
     "url": "https://testflight.apple.com/join/aUQUejW3",
     "note": "To view in the Origin Demo app, copy the link, hold the Dev badge, and paste it into Web app url."
   },
-  "version": 6
+  "version": 7
 }
