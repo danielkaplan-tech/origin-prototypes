@@ -31,8 +31,10 @@ h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:
 #viewer{position:fixed;inset:0;background:#000;display:none}
 #viewer iframe{position:absolute;left:0;right:0;top:env(safe-area-inset-top);bottom:env(safe-area-inset-bottom);width:100%;height:calc(100% - env(safe-area-inset-top) - env(safe-area-inset-bottom));border:0;background:#000}
 
-.app{background:#0f0f0f;border:1px solid var(--line);margin-top:20px}
-.app .t{font-size:15px}
+.card.app{background:none;border:0;border-radius:0;padding:0 4px;margin:32px 0 0;cursor:pointer}
+.app .t{font-size:15px;line-height:20px}
+.app .n{font-size:13px;line-height:20px;color:var(--text-3);margin-top:4px}
+.app:active{opacity:.6}
 #wrap{position:fixed;inset:0;display:none;z-index:5}
 #bd{position:absolute;inset:0;background:#000a}
 #sheet{position:absolute;left:0;right:0;bottom:0;background:#161616;border-radius:24px 24px 0 0;height:min(400px,84vh);overflow:hidden;animation:up .28s cubic-bezier(.32,.72,0,1) both}
@@ -92,7 +94,7 @@ $('bd').onclick=closeSheet;
 $('aOpen').onclick=()=>{closeSheet();open(cur)};
 $('aCopy').onclick=()=>{copy(cur.url);closeSheet()};
 $('aSafari').onclick=()=>{seen[cur.id]=1;save();setTimeout(closeSheet,300)};
-const V=2;let data=null;
+const V=3;let data=null;
 function render(){
   if(!data)return;const g=(data.groups||{})[group]||(data.groups||{}).everyone||{title:'Prototypes',items:[]};
   $('h').textContent=g.title||'Prototypes';
