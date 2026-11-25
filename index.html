@@ -17,8 +17,8 @@
 html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font:400 16px/24px var(--sans);-webkit-font-smoothing:antialiased;overscroll-behavior:none}
 #list{min-height:100%;padding:calc(env(safe-area-inset-top) + 72px) 16px calc(env(safe-area-inset-bottom) + 32px)}
 h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:0}
-.top{display:flex;flex-direction:column-reverse;align-items:flex-start;gap:16px;margin:0 0 20px}
-.appicon{width:48px;height:48px;border-radius:12px;flex:none;box-shadow:0 0 0 1px var(--line)}
+.top{display:flex;flex-direction:row-reverse;justify-content:flex-end;align-items:center;gap:14px;margin:0 0 20px}
+.appicon{width:44px;height:44px;border-radius:11px;flex:none;box-shadow:0 0 0 1px var(--line)}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 20px;min-height:36px}
 .sub{color:var(--text-3);font-size:14px;line-height:20px;margin:0}
 .sortw{position:relative;flex:none}
@@ -109,7 +109,7 @@ $('aSafari').onclick=()=>{seen[cur.id]=1;save();setTimeout(closeSheet,300)};
   const set=t=>{if(t==='light')document.documentElement.dataset.theme='light';else delete document.documentElement.dataset.theme;if(m)m.content=t==='light'?'#f5f5f7':'#050505';try{localStorage.setItem('theme',t)}catch(e){}};
   set(document.documentElement.dataset.theme==='light'?'light':'dark');
   i.onclick=()=>set(document.documentElement.dataset.theme==='light'?'dark':'light')})();
-const V=12;let data=null;
+const V=13;let data=null;
 function render(){
   if(!data)return;const g=(data.groups||{})[group]||(data.groups||{}).everyone||{title:'Prototypes',items:[]};
   $('h').textContent=g.title||'Prototypes';
