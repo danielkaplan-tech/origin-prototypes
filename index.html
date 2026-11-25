@@ -69,6 +69,9 @@ h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:
 :root[data-theme=light] #sort{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none' stroke='%23000000aa' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1l4 4 4-4'/%3E%3C/svg%3E")}
 .steps{margin:16px 0 20px;padding:0 0 0 22px;font-size:15px;line-height:22px;color:var(--text-2)}.steps li{margin:0 0 8px}.steps li::marker{color:var(--text-3)}
 #wrap2{position:fixed;inset:0;display:none;z-index:6}
+.head{display:flex;gap:14px;align-items:flex-start}
+.pi{width:48px;height:48px;border-radius:12px;flex:none;box-shadow:0 0 0 1px var(--line)}
+.body{min-width:0;flex:1}
 </style></head><body>
 <div id="list"><div class="top"><h1 id="h">Prototypes</h1><img class="appicon" src="icon.png?v=7" alt=""></div><div class="bar"><p class="sub" id="sub"></p><div class="sortw"><select id="sort" aria-label="Sort"><option value="new">Newest first</option><option value="old">Oldest first</option><option value="live">Live first</option></select></div></div><div id="cards"></div></div>
 <div id="viewer"><iframe id="frame" title="Prototype" allow="clipboard-write; fullscreen"></iframe></div>
@@ -118,7 +121,7 @@ $('aSafari').onclick=()=>{seen[cur.id]=1;save();setTimeout(()=>{$('wrap2').style
   const set=t=>{if(t==='light')document.documentElement.dataset.theme='light';else delete document.documentElement.dataset.theme;if(m)m.content=t==='light'?'#f5f5f7':'#050505';try{localStorage.setItem('theme',t)}catch(e){}};
   set(document.documentElement.dataset.theme==='light'?'light':'dark');
   i.onclick=()=>set(document.documentElement.dataset.theme==='light'?'dark':'light')})();
-const V=17;let data=null;
+const V=18;let data=null;
 function render(){
   if(!data)return;const g=(data.groups||{})[group]||(data.groups||{}).everyone||{title:'Prototypes',items:[]};
   $('h').textContent=g.title||'Prototypes';
@@ -129,8 +132,8 @@ function render(){
   const c=$('cards');c.innerHTML='';
   if(!items.length){c.innerHTML='<div class="empty">Nothing here yet. New prototypes will appear on this screen.</div>'}
   for(const it of items){const b=document.createElement('button');b.className='card';
-    b.innerHTML='<div class="row"><div class="t"></div></div><div class="n"></div><div class="d"></div><div class="st" data-u=""><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><path d="M8 12h8"/></svg><span></span></div>';b.querySelector('.st').dataset.u=it.url;
-    b.querySelector('.t').textContent=it.title;b.querySelector('.n').textContent=it.note||'';const up=(srv[it.url]||{}).modified||it.updated;b.querySelector('.d').innerHTML='<span></span><span></span>';b.querySelector('.d').children[0].textContent='Added '+day(it.added);if(up)b.querySelector('.d').children[1].textContent='Last updated '+fmt(up);applySt(b.querySelector('.st'));
+    b.innerHTML='<div class="head"><img class="pi" alt=""><div class="body"><div class="row"><div class="t"></div></div><div class="n"></div></div></div><div class="d"></div><div class="st" data-u=""><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><path d="M8 12h8"/></svg><span></span></div>';b.querySelector('.st').dataset.u=it.url;
+    b.querySelector('.t').textContent=it.title;const pi=b.querySelector('.pi');if(it.icon)pi.src=it.icon;else pi.remove();b.querySelector('.n').textContent=it.note||'';const up=(srv[it.url]||{}).modified||it.updated;b.querySelector('.d').innerHTML='<span></span><span></span>';b.querySelector('.d').children[0].textContent='Added '+day(it.added);if(up)b.querySelector('.d').children[1].textContent='Last updated '+fmt(up);applySt(b.querySelector('.st'));
     b.onclick=()=>sheet(it);c.appendChild(b)}
   (data.footer||[]).forEach(t=>{const p=document.createElement('p');p.className='foot';p.textContent=t;c.appendChild(p)});
   

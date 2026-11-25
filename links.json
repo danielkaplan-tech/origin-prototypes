@@ -18,7 +18,8 @@
             "Your trial ends: dates for today, the reminder and the plan start",
             "Skip on the first two steps; every title is one line at the same height"
           ],
-          "account": "full_demo"
+          "account": "full_demo",
+          "icon": "icons/id-protection.png"
         },
         {
           "id": "atlas-full-demo",
@@ -35,7 +36,8 @@
             "Profile initials and header icons at feed size, consistent buttons",
             "Nav shortcuts you can rearrange, emoji categories, receipt row"
           ],
-          "account": "full_demo"
+          "account": "full_demo",
+          "icon": "icons/kitchen-full.png"
         },
         {
           "id": "atlas-onboarding",
@@ -49,7 +51,8 @@
             "Welcome sheets you swipe through",
             "Set-up cards and a 30-day wrap-up once you are in the Feed",
             "Sign-up polish, credit monitoring and nav shortcuts"
-          ]
+          ],
+          "icon": "icons/kitchen-onboarding.png"
         },
         {
           "id": "atlas-nav-on",
@@ -70,12 +73,13 @@
             "Outlined buttons are soft fills, icon buttons lose their containers, and card AI buttons match Ask anything",
             "Invest: the chart toggle moves into the filter sheet. Spend: chart and calendar become a menu"
           ],
-          "account": "full_demo"
+          "account": "full_demo",
+          "icon": "icons/navigation.png"
         }
       ]
     }
   },
-  "version": 17,
+  "version": 18,
   "footer": [
     "Pasting to demo environment is not currently working."
   ]
