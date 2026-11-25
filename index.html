@@ -36,7 +36,11 @@ const SEEN='seen:'+group;
 let seen={};try{seen=JSON.parse(localStorage.getItem(SEEN)||'{}')}catch(e){}
 const save=()=>{try{localStorage.setItem(SEEN,JSON.stringify(seen))}catch(e){}};
 const fmt=d=>{try{return new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})}catch(e){return d}};
-function open(it){seen[it.id]=1;save();$('frame').src=it.url;$('viewer').style.display='block';$('list').style.display='none'}
+// A prototype takes over the whole page, the way it does in Safari, so it is a first-party site and can
+// remember your sign-in. (An item with "mode":"frame" shows inside this page instead.)
+function open(it){seen[it.id]=1;save();
+  if(it.mode==='frame'){$('frame').src=it.url;$('viewer').style.display='block';$('list').style.display='none';return}
+  location.href=it.url}
 let data=null;
 function render(){
   if(!data)return;const g=(data.groups||{})[group]||(data.groups||{}).everyone||{title:'Prototypes',items:[]};
