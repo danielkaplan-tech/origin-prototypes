@@ -111,14 +111,14 @@ $('aSafari').onclick=()=>{seen[cur.id]=1;save();setTimeout(closeSheet,300)};
   const set=t=>{if(t==='light')document.documentElement.dataset.theme='light';else delete document.documentElement.dataset.theme;if(m)m.content=t==='light'?'#f5f5f7':'#050505';try{localStorage.setItem('theme',t)}catch(e){}};
   set(document.documentElement.dataset.theme==='light'?'light':'dark');
   i.onclick=()=>set(document.documentElement.dataset.theme==='light'?'dark':'light')})();
-const V=14;let data=null;
+const V=15;let data=null;
 function render(){
   if(!data)return;const g=(data.groups||{})[group]||(data.groups||{}).everyone||{title:'Prototypes',items:[]};
   $('h').textContent=g.title||'Prototypes';
   $('sort').value=sortBy;
   const items=(g.items||[]).slice().sort((a,b)=>sortBy==='old'?ts(a.added)-ts(b.added):sortBy==='live'?((res[b.url]!==false)-(res[a.url]!==false))||ts(b.added)-ts(a.added):ts(b.added)-ts(a.added));
   const n=items.filter(i=>!seen[i.id]).length;
-  $('sub').textContent=items.length?items.length+(items.length===1?' prototype':' prototypes'):'';
+  $('sub').textContent=items.length?items.length+(items.length===1?' version':' versions'):'';
   const c=$('cards');c.innerHTML='';
   if(!items.length){c.innerHTML='<div class="empty">Nothing here yet. New prototypes will appear on this screen.</div>'}
   for(const it of items){const b=document.createElement('button');b.className='card';
