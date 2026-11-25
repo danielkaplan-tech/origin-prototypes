@@ -78,7 +78,6 @@ h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:
 <div id="wrap"><div id="bd"></div><div id="sheet"><div class="sc"><div class="grab"></div><div class="t" id="st"></div><div class="n" id="sn"></div>
 <button class="act primary" id="aOpen">Open</button><button class="act" id="aCopy">Copy link</button><button class="act" id="aHome">Add to Home Screen</button>
 <p class="acct" id="acct"></p>
-<p class="hint">Pasting to demo environment is not currently working.</p>
 <div class="chgw" id="cw"><p class="chgh">What changed, compared with today's Origin</p><ul class="chg" id="cl"></ul></div></div><div class="fade"></div></div></div><div id="wrap2"><div id="bd2" style="position:absolute;inset:0;background:#000a"></div><div id="sheet2" class="sheetlike" style="height:auto;max-height:86vh"><div class="sc" style="padding-bottom:calc(env(safe-area-inset-bottom) + 24px)"><div class="grab"></div><div class="t">Add to Home Screen</div><div class="n">It opens full screen and keeps you signed in.</div>
 <ol class="steps"><li>Open it in Safari.</li><li>Tap the Share button in Safari.</li><li>Choose Add to Home Screen, then Add.</li></ol>
 <a class="act primary" id="aSafari" target="_blank" rel="noopener" style="text-decoration:none;line-height:52px;text-align:center">Open in Safari</a></div></div></div>
@@ -121,7 +120,7 @@ $('aSafari').onclick=()=>{seen[cur.id]=1;save();setTimeout(()=>{$('wrap2').style
   const set=t=>{if(t==='light')document.documentElement.dataset.theme='light';else delete document.documentElement.dataset.theme;if(m)m.content=t==='light'?'#f5f5f7':'#050505';try{localStorage.setItem('theme',t)}catch(e){}};
   set(document.documentElement.dataset.theme==='light'?'light':'dark');
   i.onclick=()=>set(document.documentElement.dataset.theme==='light'?'dark':'light')})();
-const V=20;let data=null;
+const V=21;let data=null;
 function render(){
   if(!data)return;const g=(data.groups||{})[group]||(data.groups||{}).everyone||{title:'Prototypes',items:[]};
   $('h').textContent=g.title||'Prototypes';

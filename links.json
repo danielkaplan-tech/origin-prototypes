@@ -79,8 +79,6 @@
       ]
     }
   },
-  "version": 20,
-  "footer": [
-    "Pasting to demo environment is not currently working."
-  ]
+  "version": 21,
+  "footer": []
 }
