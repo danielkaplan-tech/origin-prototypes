@@ -43,7 +43,7 @@ h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:
 <div id="list"><h1 id="h">Prototypes</h1><p class="sub" id="sub"></p><div id="cards"></div></div>
 <div id="viewer"><iframe id="frame" title="Prototype" allow="clipboard-write; fullscreen"></iframe></div>
 <div id="wrap"><div id="bd"></div><div id="sheet"><div class="grab"></div><div class="t" id="st"></div><div class="n" id="sn"></div>
-<button class="act primary" id="aOpen">Open</button><button class="act" id="aCopy">Copy link</button><button class="act" id="aSafari">Open in Safari</button>
+<button class="act primary" id="aOpen">Open</button><button class="act" id="aCopy">Copy link</button><a class="act" id="aSafari" target="_blank" rel="noopener" style="text-decoration:none;line-height:52px;text-align:center">Open in Safari</a>
 <p class="hint">To review it in the Origin Demo app: copy the link, hold the Dev badge in the app, and paste it into Web app url. To keep one on its own icon: open it in Safari, then Share, then Add to Home Screen.</p>
 <button class="act ghost" id="aCancel">Cancel</button></div></div><div id="toast"></div>
 <script>
@@ -67,11 +67,11 @@ function copy(text){
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,()=>fallback())}else fallback();
   function fallback(){const a=document.createElement('textarea');a.value=text;a.style.position='fixed';a.style.opacity=0;document.body.appendChild(a);a.focus();a.select();try{document.execCommand('copy');done()}catch(e){toast('Could not copy. Press and hold the link instead.')}a.remove()}
 }
-function sheet(it){cur=it;$('st').textContent=it.title;$('sn').textContent=it.note||'';$('wrap').style.display='block'}
+function sheet(it){cur=it;$('aSafari').href=it.url;$('st').textContent=it.title;$('sn').textContent=it.note||'';$('wrap').style.display='block'}
 $('bd').onclick=closeSheet;$('aCancel').onclick=closeSheet;
 $('aOpen').onclick=()=>{closeSheet();open(cur)};
 $('aCopy').onclick=()=>{copy(cur.url);closeSheet()};
-$('aSafari').onclick=()=>{seen[cur.id]=1;save();closeSheet();window.open(cur.url,'_blank','noopener')};
+$('aSafari').onclick=()=>{seen[cur.id]=1;save();setTimeout(closeSheet,300)};
 let data=null;
 function render(){
   if(!data)return;const g=(data.groups||{})[group]||(data.groups||{}).everyone||{title:'Prototypes',items:[]};
