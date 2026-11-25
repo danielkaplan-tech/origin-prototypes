@@ -75,10 +75,28 @@
           ],
           "account": "full_demo",
           "icon": "icons/navigation.png?v=19"
+        },
+        {
+          "id": "cash-account",
+          "title": "Earn: Cash Account",
+          "note": "Opening flow and Cash page for the high-yield cash account.",
+          "url": "https://pr-design-high-yield-sa-20093.demo.useorigin.com/",
+          "added": "2026-11-25T15:55:40-05:00",
+          "account": "full_demo",
+          "icon": "icons/cash-account.png?v=22",
+          "changes": [
+            "Cash Account opening flow, with glass headers",
+            "Cash page: a total balance panel with the APY chip and actions, and expected growth with a 3Y and 5Y toggle",
+            "Growth chart lines end at least halfway up, with a stronger green fill",
+            "Deposit from the Cash page once the account is open: bank, amount, review, sent",
+            "Starting date chosen from a calendar",
+            "SSN field keeps its dashes while hidden",
+            "Desktop overview rebuilt after Invest's Portfolio card, with Activity and Account facts in the side column"
+          ]
         }
       ]
     }
   },
-  "version": 21,
+  "version": 22,
   "footer": []
 }
