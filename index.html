@@ -37,7 +37,7 @@ h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:
 .app:active{opacity:.6}
 #wrap{position:fixed;inset:0;display:none;z-index:5}
 #bd{position:absolute;inset:0;background:#000a}
-#sheet{position:absolute;left:0;right:0;bottom:0;background:#161616;border-radius:24px 24px 0 0;height:min(400px,84vh);overflow:hidden;animation:up .28s cubic-bezier(.32,.72,0,1) both}
+#sheet,.sheetlike{position:absolute;left:0;right:0;bottom:0;background:#161616;border-radius:24px 24px 0 0;height:min(400px,84vh);overflow:hidden;animation:up .28s cubic-bezier(.32,.72,0,1) both}
 @keyframes up{from{transform:translateY(100%)}}
 .grab{width:36px;height:4px;border-radius:2px;background:#ffffff40;margin:0 auto 14px}
 .act{display:block;width:100%;height:52px;border:0;border-radius:14px;background:#2a2a2a;color:#fff;font:600 16px/24px var(--sans);margin-top:8px;cursor:pointer}
@@ -57,13 +57,20 @@ h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:
 .chgh{font-size:12px;line-height:16px;color:var(--text-3);margin:0 0 8px}
 .chg{margin:0;padding:0 0 0 18px;font-size:14px;line-height:20px;color:var(--text-2)}
 .chg li{margin:0 0 8px}.chg li::marker{color:#ffffff59}
+.signbtn{display:block;margin:20px 4px 0;height:44px;padding:0 20px;border:0;border-radius:12px;background:#ffffff14;color:var(--text);font:600 14px/20px var(--sans);cursor:pointer}
+.signbtn:active{opacity:.6}
+.cred{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#2a2a2a;border-radius:14px;padding:12px 16px;margin-top:8px}
+.cred .l{font-size:12px;line-height:16px;color:var(--text-3)}.cred .v{font-size:15px;line-height:22px;font-weight:600;word-break:break-all}
+.cred button{flex:none;border:0;border-radius:10px;height:36px;padding:0 14px;background:#ffffff1f;color:#fff;font:600 13px/20px var(--sans);cursor:pointer}
+#wrap2{position:fixed;inset:0;display:none;z-index:6}
 </style></head><body>
 <div id="list"><h1 id="h">Prototypes</h1><div class="bar"><p class="sub" id="sub"></p><div class="sortw"><select id="sort" aria-label="Sort"><option value="new">Newest first</option><option value="old">Oldest first</option><option value="live">Live first</option></select></div></div><div id="cards"></div></div>
 <div id="viewer"><iframe id="frame" title="Prototype" allow="clipboard-write; fullscreen"></iframe></div>
 <div id="wrap"><div id="bd"></div><div id="sheet"><div class="sc"><div class="grab"></div><div class="t" id="st"></div><div class="n" id="sn"></div>
 <button class="act primary" id="aOpen">Open</button><button class="act" id="aCopy">Copy link</button><a class="act" id="aSafari" target="_blank" rel="noopener" style="text-decoration:none;line-height:52px;text-align:center">Open in Safari</a>
 <p class="hint">To review it in the Origin Demo app: copy the link, hold the Dev badge in the app, and paste it into Web app url. To keep one on its own icon: open it in Safari, then Share, then Add to Home Screen.</p>
-<div class="chgw" id="cw"><p class="chgh">What changed, compared with today's Origin</p><ul class="chg" id="cl"></ul></div></div><div class="fade"></div></div></div><div id="toast"></div>
+<div class="chgw" id="cw"><p class="chgh">What changed, compared with today's Origin</p><ul class="chg" id="cl"></ul></div></div><div class="fade"></div></div></div><div id="wrap2"><div id="bd2" style="position:absolute;inset:0;background:#000a"></div><div id="sheet2" class="sheetlike" style="height:auto;max-height:80vh"><div class="sc" style="padding-bottom:calc(env(safe-area-inset-bottom) + 24px)"><div class="grab"></div><div class="t">Sign in details</div><div class="n" id="sin"></div><div id="creds"></div></div></div></div>
+<div id="toast"></div>
 <script>
 const $=id=>document.getElementById(id);
 const group=new URLSearchParams(location.search).get('for')||'everyone';
@@ -81,6 +88,13 @@ function open(it){seen[it.id]=1;save();
   if(it.mode==='frame'){$('frame').src=it.url;$('viewer').style.display='block';$('list').style.display='none';return}
   location.href=it.url}
 
+
+function showSign(){const g=data&&data.signin;if(!g)return;$('sin').textContent=g.note||'';const box=$('creds');box.innerHTML='';
+  [['Email',g.email],['Password',g.password]].forEach(([l,v])=>{if(!v)return;const r=document.createElement('div');r.className='cred';
+    r.innerHTML='<div><div class="l"></div><div class="v"></div></div><button>Copy</button>';r.querySelector('.l').textContent=l;r.querySelector('.v').textContent=v;
+    r.querySelector('button').onclick=()=>{copy(v);toast(l+' copied')};box.appendChild(r)});
+  $('wrap2').style.display='block'}
+$('bd2').onclick=()=>{$('wrap2').style.display='none'};
 let cur=null;
 function toast(m){const t=$('toast');t.textContent=m;t.style.opacity=1;clearTimeout(toast.k);toast.k=setTimeout(()=>t.style.opacity=0,2600)}
 function closeSheet(){$('wrap').style.display='none'}
@@ -94,7 +108,7 @@ $('bd').onclick=closeSheet;
 $('aOpen').onclick=()=>{closeSheet();open(cur)};
 $('aCopy').onclick=()=>{copy(cur.url);closeSheet()};
 $('aSafari').onclick=()=>{seen[cur.id]=1;save();setTimeout(closeSheet,300)};
-const V=7;let data=null;
+const V=8;let data=null;
 function render(){
   if(!data)return;const g=(data.groups||{})[group]||(data.groups||{}).everyone||{title:'Prototypes',items:[]};
   $('h').textContent=g.title||'Prototypes';
@@ -109,6 +123,7 @@ function render(){
     b.querySelector('.t').textContent=it.title;b.querySelector('.n').textContent=it.note||'';const up=(srv[it.url]||{}).modified||it.updated;b.querySelector('.d').innerHTML='<span></span><span></span>';b.querySelector('.d').children[0].textContent='Added '+day(it.added);if(up)b.querySelector('.d').children[1].textContent='Last updated '+fmt(up);applySt(b.querySelector('.st'));
     b.onclick=()=>sheet(it);c.appendChild(b)}
   const ap=data.app;if(ap&&ap.url){const a=document.createElement('a');a.className='card app';a.href=ap.url;a.style.textDecoration='none';a.innerHTML='<div class="n"></div>';a.querySelector('.n').textContent=ap.note||'';c.appendChild(a)}
+  if(data.signin&&(data.signin.email||data.signin.password)){const b=document.createElement('button');b.className='signbtn';b.textContent='Sign in details';b.onclick=showSign;c.appendChild(b)}
 }
 
 // Is each link up? A dead preview no longer resolves, so a failed request means broken.
