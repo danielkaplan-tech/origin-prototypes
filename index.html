@@ -99,8 +99,10 @@ function render(){
 async function ping(u){
   const c=new AbortController(),t=setTimeout(()=>c.abort(),8000);
   try{await fetch(u,{mode:'no-cors',cache:'no-store',signal:c.signal});return true}catch(e){return false}finally{clearTimeout(t)}}
-function check(){document.querySelectorAll('.st').forEach(async el=>{
-  const ok=await ping(el.dataset.u);el.className='st '+(ok?'ok':'bad');el.lastChild.textContent=ok?'Live':'Broken link'})}
+let srv={};
+async function check(){try{srv=(await (await fetch('status.json?'+Date.now())).json()).links||{}}catch(e){srv={}}
+  document.querySelectorAll('.st').forEach(async el=>{
+  const s=srv[el.dataset.u],ok=(await ping(el.dataset.u))&&(!s||s.ok);el.className='st '+(ok?'ok':'bad');el.lastChild.textContent=ok?'Live':'Broken link'})}
 const load=()=>fetch('links.json?'+Date.now()).then(r=>r.json()).then(j=>{data=j;render();check()}).catch(()=>{$('sub').textContent='Could not load the list. Check your connection.'});
 load();setInterval(()=>{if(!document.hidden&&$('viewer').style.display!=='block')check()},30000);document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('viewer').style.display!=='block')load()});
 </script></body></html>

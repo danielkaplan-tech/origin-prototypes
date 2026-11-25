@@ -1,0 +1,21 @@
+{
+  "checked": "2026-11-25T17:56:04.828471Z",
+  "links": {
+    "https://pr-design-id-protection-20211.demo.useorigin.com/overview?setupStep=start": {
+      "ok": true,
+      "code": 200
+    },
+    "https://pr-daniel-concept-atlas-19970.demo.useorigin.com/atlas-concept": {
+      "ok": true,
+      "code": 200
+    },
+    "https://pr-daniel-concept-atlas-20076.demo.useorigin.com/atlas-concept?flow=new": {
+      "ok": true,
+      "code": 200
+    },
+    "https://pr-design-atlas-nav-on-20302.demo.useorigin.com": {
+      "ok": true,
+      "code": 200
+    }
+  }
+}
