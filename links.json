@@ -5,7 +5,7 @@
       "items": [
         {
           "id": "id-protection-setup",
-          "title": "ID Protection: setup",
+          "title": "ID Protection setup",
           "note": "Opens at the start of setup.",
           "url": "https://pr-design-id-protection-20211.demo.useorigin.com/overview?setupStep=start",
           "added": "2026-11-25T12:23:41-05:00",
@@ -21,7 +21,7 @@
         },
         {
           "id": "atlas-full-demo",
-          "title": "Origin: full demo",
+          "title": "Full demo",
           "note": "A signed-in member with the full experience.",
           "url": "https://pr-daniel-concept-atlas-19970.demo.useorigin.com/atlas-concept",
           "added": "2026-11-25T12:49:04-05:00",
@@ -37,7 +37,7 @@
         },
         {
           "id": "atlas-onboarding",
-          "title": "Origin: onboarding demo",
+          "title": "Onboarding",
           "note": "A new member, from sign-up to the feed.",
           "url": "https://pr-daniel-concept-atlas-20076.demo.useorigin.com/atlas-concept?flow=new",
           "added": "2026-11-25T12:49:04-05:00",
@@ -51,8 +51,8 @@
         },
         {
           "id": "atlas-nav-on",
-          "title": "Atlas: nav on",
-          "note": "",
+          "title": "Navigation",
+          "note": "The new bottom navigation on today's Origin app.",
           "url": "https://pr-design-atlas-nav-on-20302.demo.useorigin.com",
           "added": "2026-11-25T12:55:02-05:00",
           "changes": [
@@ -77,5 +77,5 @@
     "note": "Install or open it in TestFlight. To review a prototype there, copy its link, hold the Dev badge, and paste it into Web app url.",
     "url": "https://testflight.apple.com/join/aUQUejW3"
   },
-  "version": 3
+  "version": 4
 }

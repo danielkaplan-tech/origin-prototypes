@@ -94,7 +94,7 @@ $('bd').onclick=closeSheet;
 $('aOpen').onclick=()=>{closeSheet();open(cur)};
 $('aCopy').onclick=()=>{copy(cur.url);closeSheet()};
 $('aSafari').onclick=()=>{seen[cur.id]=1;save();setTimeout(closeSheet,300)};
-const V=3;let data=null;
+const V=4;let data=null;
 function render(){
   if(!data)return;const g=(data.groups||{})[group]||(data.groups||{}).everyone||{title:'Prototypes',items:[]};
   $('h').textContent=g.title||'Prototypes';
