@@ -14,8 +14,10 @@
 :root{--bg:#050505;--text:#fff;--text-2:#ffffffcc;--text-3:#ffffff73;--card:#161616;--line:#ffffff1f;--sans:Inter,-apple-system,system-ui,sans-serif}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font:400 16px/24px var(--sans);-webkit-font-smoothing:antialiased;overscroll-behavior:none}
-#list{min-height:100%;padding:calc(env(safe-area-inset-top) + 64px) 16px calc(env(safe-area-inset-bottom) + 32px)}
-h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:0 0 4px}
+#list{min-height:100%;padding:calc(env(safe-area-inset-top) + 72px) 16px calc(env(safe-area-inset-bottom) + 32px)}
+h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:0}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:8px 0 20px}
+.appicon{width:48px;height:48px;border-radius:12px;flex:none;box-shadow:0 0 0 1px #ffffff1a}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 20px;min-height:36px}
 .sub{color:var(--text-3);font-size:14px;line-height:20px;margin:0}
 .sortw{position:relative;flex:none}
@@ -37,7 +39,7 @@ h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:
 .app:active{opacity:.6}
 #wrap{position:fixed;inset:0;display:none;z-index:5}
 #bd{position:absolute;inset:0;background:#000a}
-#sheet,.sheetlike{position:absolute;left:0;right:0;bottom:0;background:#161616;border-radius:24px 24px 0 0;height:min(400px,84vh);overflow:hidden;animation:up .28s cubic-bezier(.32,.72,0,1) both}
+#sheet,.sheetlike{position:absolute;left:0;right:0;bottom:0;background:#161616;border-radius:24px 24px 0 0;height:min(450px,86vh);overflow:hidden;animation:up .28s cubic-bezier(.32,.72,0,1) both}
 @keyframes up{from{transform:translateY(100%)}}
 .grab{width:36px;height:4px;border-radius:2px;background:#ffffff40;margin:0 auto 14px}
 .act{display:block;width:100%;height:52px;border:0;border-radius:14px;background:#2a2a2a;color:#fff;font:600 16px/24px var(--sans);margin-top:8px;cursor:pointer}
@@ -54,15 +56,17 @@ h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:
 .sc{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 16px calc(env(safe-area-inset-bottom) + 48px)}
 .fade{position:absolute;left:0;right:0;bottom:0;height:56px;background:linear-gradient(#16161600,#161616);pointer-events:none}
 .chgw{margin:28px 0 0}
+.acct{margin:16px 4px 0;font-size:14px;line-height:20px;color:var(--text-2)}
 .chgh{font-size:12px;line-height:16px;color:var(--text-3);margin:0 0 8px}
 .chg{margin:0;padding:0 0 0 18px;font-size:14px;line-height:20px;color:var(--text-2)}
 .chg li{margin:0 0 8px}.chg li::marker{color:#ffffff59}
 .foot{margin:12px 4px 0;font-size:13px;line-height:20px;color:var(--text-3)}
 </style></head><body>
-<div id="list"><h1 id="h">Prototypes</h1><div class="bar"><p class="sub" id="sub"></p><div class="sortw"><select id="sort" aria-label="Sort"><option value="new">Newest first</option><option value="old">Oldest first</option><option value="live">Live first</option></select></div></div><div id="cards"></div></div>
+<div id="list"><div class="top"><h1 id="h">Prototypes</h1><img class="appicon" src="icon.png?v=7" alt=""></div><div class="bar"><p class="sub" id="sub"></p><div class="sortw"><select id="sort" aria-label="Sort"><option value="new">Newest first</option><option value="old">Oldest first</option><option value="live">Live first</option></select></div></div><div id="cards"></div></div>
 <div id="viewer"><iframe id="frame" title="Prototype" allow="clipboard-write; fullscreen"></iframe></div>
 <div id="wrap"><div id="bd"></div><div id="sheet"><div class="sc"><div class="grab"></div><div class="t" id="st"></div><div class="n" id="sn"></div>
 <button class="act primary" id="aOpen">Open</button><button class="act" id="aCopy">Copy link</button><a class="act" id="aSafari" target="_blank" rel="noopener" style="text-decoration:none;line-height:52px;text-align:center">Open in Safari</a>
+<p class="acct" id="acct"></p>
 <p class="hint">To review it in the Origin Demo app: copy the link, hold the Dev badge in the app, and paste it into Web app url. To keep one on its own icon: open it in Safari, then Share, then Add to Home Screen.</p>
 <div class="chgw" id="cw"><p class="chgh">What changed, compared with today's Origin</p><ul class="chg" id="cl"></ul></div></div><div class="fade"></div></div></div><div id="toast"></div>
 <script>
@@ -91,12 +95,12 @@ function copy(text){
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,()=>fallback())}else fallback();
   function fallback(){const a=document.createElement('textarea');a.value=text;a.style.position='fixed';a.style.opacity=0;document.body.appendChild(a);a.focus();a.select();try{document.execCommand('copy');done()}catch(e){toast('Could not copy. Press and hold the link instead.')}a.remove()}
 }
-function sheet(it){cur=it;$('aSafari').href=it.url;$('st').textContent=it.title;$('sn').textContent=it.note||'';const L=it.changes||[];$('cw').style.display=L.length?'block':'none';$('cl').innerHTML='';L.forEach(x=>{const li=document.createElement('li');li.textContent=x;$('cl').appendChild(li)});document.querySelector('.sc').scrollTop=0;$('wrap').style.display='block'}
+function sheet(it){cur=it;$('aSafari').href=it.url;$('st').textContent=it.title;$('sn').textContent=it.note||'';$('acct').textContent=it.account?'Sign in with the '+it.account+' account.':'';$('acct').style.display=it.account?'block':'none';const L=it.changes||[];$('cw').style.display=L.length?'block':'none';$('cl').innerHTML='';L.forEach(x=>{const li=document.createElement('li');li.textContent=x;$('cl').appendChild(li)});document.querySelector('.sc').scrollTop=0;$('wrap').style.display='block'}
 $('bd').onclick=closeSheet;
 $('aOpen').onclick=()=>{closeSheet();open(cur)};
 $('aCopy').onclick=()=>{copy(cur.url);closeSheet()};
 $('aSafari').onclick=()=>{seen[cur.id]=1;save();setTimeout(closeSheet,300)};
-const V=9;let data=null;
+const V=10;let data=null;
 function render(){
   if(!data)return;const g=(data.groups||{})[group]||(data.groups||{}).everyone||{title:'Prototypes',items:[]};
   $('h').textContent=g.title||'Prototypes';
@@ -111,7 +115,7 @@ function render(){
     b.querySelector('.t').textContent=it.title;b.querySelector('.n').textContent=it.note||'';const up=(srv[it.url]||{}).modified||it.updated;b.querySelector('.d').innerHTML='<span></span><span></span>';b.querySelector('.d').children[0].textContent='Added '+day(it.added);if(up)b.querySelector('.d').children[1].textContent='Last updated '+fmt(up);applySt(b.querySelector('.st'));
     b.onclick=()=>sheet(it);c.appendChild(b)}
   const ap=data.app;if(ap&&ap.url){const a=document.createElement('a');a.className='card app';a.href=ap.url;a.style.textDecoration='none';a.innerHTML='<div class="n"></div>';a.querySelector('.n').textContent=ap.note||'';c.appendChild(a)}
-  (data.footer||[]).forEach(t=>{const p=document.createElement('p');p.className='foot';p.textContent=t;c.appendChild(p)});
+  
 }
 
 // Is each link up? A dead preview no longer resolves, so a failed request means broken.

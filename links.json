@@ -17,7 +17,8 @@
             "Monitor your SSN: SSN and address, then Enable SSN monitoring",
             "Your trial ends: dates for today, the reminder and the plan start",
             "Skip on the first two steps; every title is one line at the same height"
-          ]
+          ],
+          "account": "full_demo"
         },
         {
           "id": "atlas-full-demo",
@@ -33,7 +34,8 @@
             "Credit monitoring gauge and household progress",
             "Profile initials and header icons at feed size, consistent buttons",
             "Nav shortcuts you can rearrange, emoji categories, receipt row"
-          ]
+          ],
+          "account": "full_demo"
         },
         {
           "id": "atlas-onboarding",
@@ -67,7 +69,8 @@
             "One selected style for toggles and date ranges: soft fill, no tray or border",
             "Outlined buttons are soft fills, icon buttons lose their containers, and card AI buttons match Ask anything",
             "Invest: the chart toggle moves into the filter sheet. Spend: chart and calendar become a menu"
-          ]
+          ],
+          "account": "full_demo"
         }
       ]
     }
@@ -76,8 +79,5 @@
     "url": "https://testflight.apple.com/join/aUQUejW3",
     "note": "To view in the Origin Demo app, copy the link, hold the Dev badge, and paste it into Web app url."
   },
-  "version": 9,
-  "footer": [
-    "Sign in with the full_demo account."
-  ]
+  "version": 10
 }
