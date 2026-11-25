@@ -76,5 +76,8 @@
     "url": "https://testflight.apple.com/join/aUQUejW3",
     "note": "To view in the Origin Demo app, copy the link, hold the Dev badge, and paste it into Web app url."
   },
-  "version": 8
+  "version": 9,
+  "footer": [
+    "Sign in with the full_demo account."
+  ]
 }
