@@ -90,7 +90,7 @@ $('bd').onclick=closeSheet;
 $('aOpen').onclick=()=>{closeSheet();open(cur)};
 $('aCopy').onclick=()=>{copy(cur.url);closeSheet()};
 $('aSafari').onclick=()=>{seen[cur.id]=1;save();setTimeout(closeSheet,300)};
-let data=null;
+const V=1;let data=null;
 function render(){
   if(!data)return;const g=(data.groups||{})[group]||(data.groups||{}).everyone||{title:'Prototypes',items:[]};
   $('h').textContent=g.title||'Prototypes';
@@ -119,6 +119,6 @@ async function check(){try{srv=(await (await fetch('status.json?'+Date.now())).j
   const changed=JSON.stringify(next)!==JSON.stringify(res);res=next;
   if(changed&&sortBy==='live')render();else document.querySelectorAll('.st').forEach(applySt)}
 $('sort').onchange=()=>{sortBy=$('sort').value;try{localStorage.setItem('sort',sortBy)}catch(e){}render()};
-const load=()=>fetch('links.json?'+Date.now()).then(r=>r.json()).then(async j=>{data=j;try{srv=(await (await fetch('status.json?'+Date.now())).json()).links||{}}catch(e){}render();check()}).catch(()=>{$('sub').textContent='Could not load the list. Check your connection.'});
+const load=()=>fetch('links.json?'+Date.now()).then(r=>r.json()).then(async j=>{if((j.version||0)>V&&!location.search.includes('v='+j.version)){const u=new URL(location.href);u.searchParams.set('v',j.version);location.replace(u.toString());return}data=j;try{srv=(await (await fetch('status.json?'+Date.now())).json()).links||{}}catch(e){}render();check()}).catch(()=>{$('sub').textContent='Could not load the list. Check your connection.'});
 load();setInterval(()=>{if(!document.hidden&&$('viewer').style.display!=='block')check()},30000);document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('viewer').style.display!=='block')load()});
 </script></body></html>
