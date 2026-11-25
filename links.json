@@ -1,0 +1,16 @@
+{
+  "groups": {
+    "everyone": {
+      "title": "Prototypes",
+      "items": [
+        {
+          "id": "id-protection-setup",
+          "title": "ID Protection: setup",
+          "note": "Opens at the start of setup.",
+          "url": "https://pr-design-id-protection-20211.demo.useorigin.com/overview?setupStep=start",
+          "added": "2026-11-25"
+        }
+      ]
+    }
+  }
+}

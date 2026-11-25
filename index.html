@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Prototypes</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Prototypes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#050505">
+<link rel="apple-touch-icon" href="icon.png">
+<style>
+:root{--bg:#050505;--text:#fff;--text-2:#ffffffcc;--text-3:#ffffff73;--card:#161616;--line:#ffffff1f;--sans:Inter,-apple-system,system-ui,sans-serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font:400 16px/24px var(--sans);-webkit-font-smoothing:antialiased;overscroll-behavior:none}
+#list{min-height:100%;padding:calc(env(safe-area-inset-top) + 64px) 16px calc(env(safe-area-inset-bottom) + 32px)}
+h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:0 0 4px}
+.sub{color:var(--text-3);font-size:14px;line-height:20px;margin:0 0 28px}
+.card{display:block;width:100%;text-align:left;background:var(--card);border:0;border-radius:16px;padding:16px;margin:0 0 12px;color:inherit;font:inherit;cursor:pointer}
+.card:active{opacity:.7}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.t{font-size:17px;line-height:24px;font-weight:600}
+.n{color:var(--text-2);font-size:14px;line-height:20px;margin-top:2px}
+.d{color:var(--text-3);font-size:12px;line-height:16px;margin-top:10px}
+.new{flex:none;font-size:11px;line-height:16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:#fff;color:#000;border-radius:6px;padding:2px 8px}
+.empty{color:var(--text-3);padding:24px 0}
+#viewer{position:fixed;inset:0;background:#000;display:none}
+#viewer iframe{position:absolute;left:0;right:0;top:env(safe-area-inset-top);bottom:env(safe-area-inset-bottom);width:100%;height:calc(100% - env(safe-area-inset-top) - env(safe-area-inset-bottom));border:0;background:#000}
+</style></head><body>
+<div id="list"><h1 id="h">Prototypes</h1><p class="sub" id="sub"></p><div id="cards"></div></div>
+<div id="viewer"><iframe id="frame" title="Prototype" allow="clipboard-write; fullscreen"></iframe></div>
+<script>
+const $=id=>document.getElementById(id);
+const group=new URLSearchParams(location.search).get('for')||'everyone';
+const SEEN='seen:'+group;
+let seen={};try{seen=JSON.parse(localStorage.getItem(SEEN)||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem(SEEN,JSON.stringify(seen))}catch(e){}};
+const fmt=d=>{try{return new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})}catch(e){return d}};
+function open(it){seen[it.id]=1;save();$('frame').src=it.url;$('viewer').style.display='block';$('list').style.display='none'}
+let data=null;
+function render(){
+  if(!data)return;const g=(data.groups||{})[group]||(data.groups||{}).everyone||{title:'Prototypes',items:[]};
+  $('h').textContent=g.title||'Prototypes';
+  const items=(g.items||[]).slice().sort((a,b)=>(b.added||'').localeCompare(a.added||''));
+  const n=items.filter(i=>!seen[i.id]).length;
+  $('sub').textContent=items.length?(n?n+' new':'Everything is up to date'):'';
+  const c=$('cards');c.innerHTML='';
+  if(!items.length){c.innerHTML='<div class="empty">Nothing here yet. New prototypes will appear on this screen.</div>';return}
+  for(const it of items){const b=document.createElement('button');b.className='card';
+    b.innerHTML='<div class="row"><div class="t"></div>'+(seen[it.id]?'':'<span class="new">New</span>')+'</div><div class="n"></div><div class="d"></div>';
+    b.querySelector('.t').textContent=it.title;b.querySelector('.n').textContent=it.note||'';b.querySelector('.d').textContent='Added '+fmt(it.added);
+    b.onclick=()=>open(it);c.appendChild(b)}
+}
+const load=()=>fetch('links.json?'+Date.now()).then(r=>r.json()).then(j=>{data=j;render()}).catch(()=>{$('sub').textContent='Could not load the list. Check your connection.'});
+load();document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('viewer').style.display!=='block')load()});
+</script></body></html>
