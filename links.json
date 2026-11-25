@@ -8,28 +8,66 @@
           "title": "ID Protection: setup",
           "note": "Opens at the start of setup.",
           "url": "https://pr-design-id-protection-20211.demo.useorigin.com/overview?setupStep=start",
-          "added": "2026-11-25T12:23:41-05:00"
+          "added": "2026-11-25T12:23:41-05:00",
+          "changes": [
+            "Activating protection and Protection is activated are now one screen",
+            "New step: You're insured for $3M (copy still needs legal)",
+            "Data removal started: Now, Next and Later, with a note that it can take up to 3 months",
+            "Watching the dark web: what we scan for, each switched on",
+            "Monitor your SSN: SSN and address, then Enable SSN monitoring",
+            "Your trial ends: dates for today, the reminder and the plan start",
+            "Skip on the first two steps; every title is one line at the same height"
+          ]
         },
         {
           "id": "atlas-full-demo",
           "title": "Origin: full demo",
           "note": "A signed-in member with the full experience.",
           "url": "https://pr-daniel-concept-atlas-19970.demo.useorigin.com/atlas-concept",
-          "added": "2026-11-25T12:49:04-05:00"
+          "added": "2026-11-25T12:49:04-05:00",
+          "changes": [
+            "Chat-first Origin: Feed, Chat and Track instead of today's tabs",
+            "Voice chat on the shared demo, with a muted mic and a quicker \"I'll look into that\"",
+            "Set-up cards, a 30-day wrap-up and gentler tiles",
+            "Partner: invite sheet, pending state, whose-money menu and owner switch, with a Venn view",
+            "Credit monitoring gauge and household progress",
+            "Profile initials and header icons at feed size, consistent buttons",
+            "Nav shortcuts you can rearrange, emoji categories, receipt row"
+          ]
         },
         {
           "id": "atlas-onboarding",
           "title": "Origin: onboarding demo",
           "note": "A new member, from sign-up to the feed.",
           "url": "https://pr-daniel-concept-atlas-20076.demo.useorigin.com/atlas-concept?flow=new",
-          "added": "2026-11-25T12:49:04-05:00"
+          "added": "2026-11-25T12:49:04-05:00",
+          "changes": [
+            "New-member flow from Sign up to the Feed (sign-in, card and bank are stand-ins)",
+            "Paywall without a back button, with billing terms and free credit monitoring",
+            "Welcome sheets you swipe through",
+            "Set-up cards and a 30-day wrap-up once you are in the Feed",
+            "Sign-up polish, credit monitoring and nav shortcuts"
+          ]
         },
         {
           "id": "atlas-nav-on",
           "title": "Atlas: nav on",
           "note": "",
           "url": "https://pr-design-atlas-nav-on-20302.demo.useorigin.com",
-          "added": "2026-11-25T12:55:02-05:00"
+          "added": "2026-11-25T12:55:02-05:00",
+          "changes": [
+            "New frosted glass bottom bar: Home, Spend, Invest and Earn, with Ask anything as the last slot",
+            "Earn (the high-yield cash account) replaces Forecast in the nav",
+            "A pill slides to the tab you are on; the other tabs are quiet icons",
+            "The bar tucks into a circle when you scroll down and returns when you scroll up or tap it",
+            "Hold a tab to rearrange: the others jiggle and slide aside as you drag",
+            "Glass header: frosted menu and settings buttons, with a soft blur on scroll instead of a solid band",
+            "Home opens on Net worth; the stack of cards above it is gone",
+            "Net worth: 40px tabs with no dividers, Add account on its own row, Forecast sits by the balance",
+            "One selected style for toggles and date ranges: soft fill, no tray or border",
+            "Outlined buttons are soft fills, icon buttons lose their containers, and card AI buttons match Ask anything",
+            "Invest: the chart toggle moves into the filter sheet. Spend: chart and calendar become a menu"
+          ]
         }
       ]
     }
