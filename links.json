@@ -8,28 +8,28 @@
           "title": "ID Protection: setup",
           "note": "Opens at the start of setup.",
           "url": "https://pr-design-id-protection-20211.demo.useorigin.com/overview?setupStep=start",
-          "added": "2026-11-25"
+          "added": "2026-11-25T12:23:41-05:00"
         },
         {
           "id": "atlas-full-demo",
           "title": "Origin: full demo",
           "note": "A signed-in member with the full experience.",
           "url": "https://pr-daniel-concept-atlas-19970.demo.useorigin.com/atlas-concept",
-          "added": "2026-11-25"
+          "added": "2026-11-25T12:49:04-05:00"
         },
         {
           "id": "atlas-onboarding",
           "title": "Origin: onboarding demo",
           "note": "A new member, from sign-up to the feed.",
           "url": "https://pr-daniel-concept-atlas-20076.demo.useorigin.com/atlas-concept?flow=new",
-          "added": "2026-11-25"
+          "added": "2026-11-25T12:49:04-05:00"
         },
         {
           "id": "atlas-nav-on",
           "title": "Atlas: nav on",
           "note": "",
           "url": "https://pr-design-atlas-nav-on-20302.demo.useorigin.com",
-          "added": "2026-11-25"
+          "added": "2026-11-25T12:55:02-05:00"
         }
       ]
     }
