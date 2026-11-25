@@ -73,9 +73,8 @@
     }
   },
   "app": {
-    "title": "Origin Demo app",
-    "note": "Install or open it in TestFlight. To review a prototype there, copy its link, hold the Dev badge, and paste it into Web app url.",
-    "url": "https://testflight.apple.com/join/aUQUejW3"
+    "url": "https://testflight.apple.com/join/aUQUejW3",
+    "note": "To view in the Origin Demo app, copy the link, hold the Dev badge, and paste it into Web app url."
   },
-  "version": 4
+  "version": 5
 }
