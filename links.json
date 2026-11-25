@@ -23,6 +23,13 @@
           "note": "A new member, from sign-up to the feed.",
           "url": "https://pr-daniel-concept-atlas-20076.demo.useorigin.com/atlas-concept?flow=new",
           "added": "2026-11-25"
+        },
+        {
+          "id": "atlas-nav-on",
+          "title": "Atlas: nav on",
+          "note": "",
+          "url": "https://pr-design-atlas-nav-on-20302.demo.useorigin.com",
+          "added": "2026-11-25"
         }
       ]
     }

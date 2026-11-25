@@ -39,6 +39,13 @@ h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:
 .act:active{opacity:.7}
 .hint{color:var(--text-3);font-size:12px;line-height:18px;margin:12px 4px 0}
 #toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 96px);transform:translateX(-50%);z-index:9;background:#fff;color:#000;border-radius:12px;padding:10px 16px;font-size:14px;line-height:20px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .25s;max-width:86%;text-align:center}
+.card{position:relative}
+.dotnew{position:absolute;top:14px;right:14px;width:10px;height:10px;border-radius:50%;background:#34c759}
+.card .t{padding-right:24px}
+.st{position:absolute;right:16px;bottom:14px;display:flex;align-items:center;gap:6px;font-size:12px;line-height:16px;color:var(--text-3)}
+.st i{width:6px;height:6px;border-radius:50%;background:#ffffff59}
+.st.ok{color:#34c759}.st.ok i{background:#34c759}
+.st.bad{color:#ff453a}.st.bad i{background:#ff453a}
 </style></head><body>
 <div id="list"><h1 id="h">Prototypes</h1><p class="sub" id="sub"></p><div id="cards"></div></div>
 <div id="viewer"><iframe id="frame" title="Prototype" allow="clipboard-write; fullscreen"></iframe></div>
@@ -82,11 +89,18 @@ function render(){
   const c=$('cards');c.innerHTML='';
   if(!items.length){c.innerHTML='<div class="empty">Nothing here yet. New prototypes will appear on this screen.</div>'}
   for(const it of items){const b=document.createElement('button');b.className='card';
-    b.innerHTML='<div class="row"><div class="t"></div>'+(seen[it.id]?'':'<span class="new">New</span>')+'</div><div class="n"></div><div class="d"></div>';
+    b.innerHTML=(seen[it.id]?'':'<i class="dotnew" title="New"></i>')+'<div class="row"><div class="t"></div></div><div class="n"></div><div class="d"></div><div class="st" data-u=""><i></i><span>Checking</span></div>';b.querySelector('.st').dataset.u=it.url;
     b.querySelector('.t').textContent=it.title;b.querySelector('.n').textContent=it.note||'';b.querySelector('.d').textContent='Added '+fmt(it.added);
     b.onclick=()=>sheet(it);c.appendChild(b)}
   const ap=data.app;if(ap&&ap.url){const a=document.createElement('a');a.className='card app';a.href=ap.url;a.style.textDecoration='none';a.innerHTML='<div class="t"></div><div class="n"></div>';a.querySelector('.t').textContent=ap.title||'Origin Demo app';a.querySelector('.n').textContent=ap.note||'';c.appendChild(a)}
 }
-const load=()=>fetch('links.json?'+Date.now()).then(r=>r.json()).then(j=>{data=j;render()}).catch(()=>{$('sub').textContent='Could not load the list. Check your connection.'});
-load();document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('viewer').style.display!=='block')load()});
+
+// Is each link up? A dead preview no longer resolves, so a failed request means broken.
+async function ping(u){
+  const c=new AbortController(),t=setTimeout(()=>c.abort(),8000);
+  try{await fetch(u,{mode:'no-cors',cache:'no-store',signal:c.signal});return true}catch(e){return false}finally{clearTimeout(t)}}
+function check(){document.querySelectorAll('.st').forEach(async el=>{
+  const ok=await ping(el.dataset.u);el.className='st '+(ok?'ok':'bad');el.lastChild.textContent=ok?'Live':'Broken link'})}
+const load=()=>fetch('links.json?'+Date.now()).then(r=>r.json()).then(j=>{data=j;render();check()}).catch(()=>{$('sub').textContent='Could not load the list. Check your connection.'});
+load();setInterval(()=>{if(!document.hidden&&$('viewer').style.display!=='block')check()},30000);document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('viewer').style.display!=='block')load()});
 </script></body></html>
