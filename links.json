@@ -9,6 +9,20 @@
           "note": "Opens at the start of setup.",
           "url": "https://pr-design-id-protection-20211.demo.useorigin.com/overview?setupStep=start",
           "added": "2026-11-25"
+        },
+        {
+          "id": "atlas-full-demo",
+          "title": "Origin: full demo",
+          "note": "A signed-in member with the full experience.",
+          "url": "https://pr-daniel-concept-atlas-19970.demo.useorigin.com/atlas-concept",
+          "added": "2026-11-25"
+        },
+        {
+          "id": "atlas-onboarding",
+          "title": "Origin: onboarding demo",
+          "note": "A new member, from sign-up to the feed.",
+          "url": "https://pr-daniel-concept-atlas-19970.demo.useorigin.com/atlas-concept?flow=new",
+          "added": "2026-11-25"
         }
       ]
     }
