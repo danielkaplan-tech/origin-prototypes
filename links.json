@@ -19,7 +19,7 @@
             "Skip on the first two steps; every title is one line at the same height"
           ],
           "account": "full_demo",
-          "icon": "icons/id-protection.png"
+          "icon": "icons/id-protection.png?v=19"
         },
         {
           "id": "atlas-full-demo",
@@ -37,7 +37,7 @@
             "Nav shortcuts you can rearrange, emoji categories, receipt row"
           ],
           "account": "full_demo",
-          "icon": "icons/kitchen-full.png"
+          "icon": "icons/kitchen-full.png?v=19"
         },
         {
           "id": "atlas-onboarding",
@@ -52,7 +52,7 @@
             "Set-up cards and a 30-day wrap-up once you are in the Feed",
             "Sign-up polish, credit monitoring and nav shortcuts"
           ],
-          "icon": "icons/kitchen-onboarding.png"
+          "icon": "icons/kitchen-onboarding.png?v=19"
         },
         {
           "id": "atlas-nav-on",
@@ -74,12 +74,12 @@
             "Invest: the chart toggle moves into the filter sheet. Spend: chart and calendar become a menu"
           ],
           "account": "full_demo",
-          "icon": "icons/navigation.png"
+          "icon": "icons/navigation.png?v=19"
         }
       ]
     }
   },
-  "version": 18,
+  "version": 19,
   "footer": [
     "Pasting to demo environment is not currently working."
   ]
