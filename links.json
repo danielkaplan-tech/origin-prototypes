@@ -75,9 +75,8 @@
       ]
     }
   },
-  "version": 16,
+  "version": 17,
   "footer": [
-    "To keep this page on your home screen, open it in Safari, tap Share, then Add to Home Screen.",
     "Pasting to demo environment is not currently working."
   ]
 }

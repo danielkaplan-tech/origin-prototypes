@@ -67,14 +67,19 @@ h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:
 :root[data-theme=light]{--bg:#f5f5f7;--text:#000;--text-2:#000000b3;--text-3:#00000080;--card:#fff;--line:#0000001a;--btn:#efeff2;--pbg:#000;--ptx:#fff;--grab:#00000030;--faint:#00000040;--mark:#00000059;--sheet0:#ffffff00;--chev:%23000000aa}
 .appicon{cursor:pointer}
 :root[data-theme=light] #sort{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none' stroke='%23000000aa' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1l4 4 4-4'/%3E%3C/svg%3E")}
+.steps{margin:16px 0 20px;padding:0 0 0 22px;font-size:15px;line-height:22px;color:var(--text-2)}.steps li{margin:0 0 8px}.steps li::marker{color:var(--text-3)}
+#wrap2{position:fixed;inset:0;display:none;z-index:6}
 </style></head><body>
 <div id="list"><div class="top"><h1 id="h">Prototypes</h1><img class="appicon" src="icon.png?v=7" alt=""></div><div class="bar"><p class="sub" id="sub"></p><div class="sortw"><select id="sort" aria-label="Sort"><option value="new">Newest first</option><option value="old">Oldest first</option><option value="live">Live first</option></select></div></div><div id="cards"></div></div>
 <div id="viewer"><iframe id="frame" title="Prototype" allow="clipboard-write; fullscreen"></iframe></div>
 <div id="wrap"><div id="bd"></div><div id="sheet"><div class="sc"><div class="grab"></div><div class="t" id="st"></div><div class="n" id="sn"></div>
-<button class="act primary" id="aOpen">Open</button><button class="act" id="aCopy">Copy link</button><a class="act" id="aSafari" target="_blank" rel="noopener" style="text-decoration:none;line-height:52px;text-align:center">Open in Safari</a>
+<button class="act primary" id="aOpen">Open</button><button class="act" id="aCopy">Copy link</button><button class="act" id="aHome">Add to Home Screen</button>
 <p class="acct" id="acct"></p>
-<p class="hint">To keep one on your home screen, open it in Safari, tap Share, then Add to Home Screen. Pasting to demo environment is not currently working.</p>
-<div class="chgw" id="cw"><p class="chgh">What changed, compared with today's Origin</p><ul class="chg" id="cl"></ul></div></div><div class="fade"></div></div></div><div id="toast"></div>
+<p class="hint">Pasting to demo environment is not currently working.</p>
+<div class="chgw" id="cw"><p class="chgh">What changed, compared with today's Origin</p><ul class="chg" id="cl"></ul></div></div><div class="fade"></div></div></div><div id="wrap2"><div id="bd2" style="position:absolute;inset:0;background:#000a"></div><div id="sheet2" class="sheetlike" style="height:auto;max-height:86vh"><div class="sc" style="padding-bottom:calc(env(safe-area-inset-bottom) + 24px)"><div class="grab"></div><div class="t">Add to Home Screen</div><div class="n">It opens full screen and keeps you signed in.</div>
+<ol class="steps"><li>Open it in Safari.</li><li>Tap the Share button in Safari.</li><li>Choose Add to Home Screen, then Add.</li></ol>
+<a class="act primary" id="aSafari" target="_blank" rel="noopener" style="text-decoration:none;line-height:52px;text-align:center">Open in Safari</a></div></div></div>
+<div id="toast"></div>
 <script>
 const $=id=>document.getElementById(id);
 const group=new URLSearchParams(location.search).get('for')||'everyone';
@@ -101,17 +106,19 @@ function copy(text){
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,()=>fallback())}else fallback();
   function fallback(){const a=document.createElement('textarea');a.value=text;a.style.position='fixed';a.style.opacity=0;document.body.appendChild(a);a.focus();a.select();try{document.execCommand('copy');done()}catch(e){toast('Could not copy. Press and hold the link instead.')}a.remove()}
 }
-function sheet(it){cur=it;$('aSafari').href=it.url;$('st').textContent=it.title;$('sn').textContent=it.note||'';$('acct').textContent=it.account?'Sign in with the '+it.account+' account.':'';$('acct').style.display=it.account?'block':'none';const L=it.changes||[];$('cw').style.display=L.length?'block':'none';$('cl').innerHTML='';L.forEach(x=>{const li=document.createElement('li');li.textContent=x;$('cl').appendChild(li)});document.querySelector('.sc').scrollTop=0;$('wrap').style.display='block'}
+function sheet(it){cur=it;$('st').textContent=it.title;$('sn').textContent=it.note||'';$('acct').textContent=it.account?'Sign in with the '+it.account+' account.':'';$('acct').style.display=it.account?'block':'none';const L=it.changes||[];$('cw').style.display=L.length?'block':'none';$('cl').innerHTML='';L.forEach(x=>{const li=document.createElement('li');li.textContent=x;$('cl').appendChild(li)});document.querySelector('.sc').scrollTop=0;$('wrap').style.display='block'}
 $('bd').onclick=closeSheet;
 $('aOpen').onclick=()=>{closeSheet();open(cur)};
 $('aCopy').onclick=()=>{copy(cur.url);closeSheet()};
-$('aSafari').onclick=()=>{seen[cur.id]=1;save();setTimeout(closeSheet,300)};
+$('aHome').onclick=()=>{$('aSafari').href=cur.url;closeSheet();$('wrap2').style.display='block'};
+$('bd2').onclick=()=>{$('wrap2').style.display='none'};
+$('aSafari').onclick=()=>{seen[cur.id]=1;save();setTimeout(()=>{$('wrap2').style.display='none'},300)};
 
 (function(){const i=document.querySelector('.appicon'),m=document.querySelector('meta[name=theme-color]');
   const set=t=>{if(t==='light')document.documentElement.dataset.theme='light';else delete document.documentElement.dataset.theme;if(m)m.content=t==='light'?'#f5f5f7':'#050505';try{localStorage.setItem('theme',t)}catch(e){}};
   set(document.documentElement.dataset.theme==='light'?'light':'dark');
   i.onclick=()=>set(document.documentElement.dataset.theme==='light'?'dark':'light')})();
-const V=16;let data=null;
+const V=17;let data=null;
 function render(){
   if(!data)return;const g=(data.groups||{})[group]||(data.groups||{}).everyone||{title:'Prototypes',items:[]};
   $('h').textContent=g.title||'Prototypes';
