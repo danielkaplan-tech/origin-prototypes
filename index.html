@@ -24,7 +24,7 @@ h1{font-size:34px;line-height:40px;font-weight:600;letter-spacing:-.02em;margin:
 .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .t{font-size:17px;line-height:24px;font-weight:600}
 .n{color:var(--text-2);font-size:14px;line-height:20px;margin-top:4px}
-.d{color:var(--text-3);font-size:12px;line-height:16px;margin-top:14px}
+.d{color:var(--text-3);font-size:12px;line-height:18px;margin-top:14px}
 .new{flex:none;font-size:11px;line-height:16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:#fff;color:#000;border-radius:6px;padding:2px 8px}
 .empty{color:var(--text-3);padding:24px 0}
 #viewer{position:fixed;inset:0;background:#000;display:none}
@@ -96,7 +96,7 @@ function render(){
   if(!items.length){c.innerHTML='<div class="empty">Nothing here yet. New prototypes will appear on this screen.</div>'}
   for(const it of items){const b=document.createElement('button');b.className='card';
     b.innerHTML=(seen[it.id]?'':'<i class="dotnew" title="New"></i>')+'<div class="row"><div class="t"></div></div><div class="n"></div><div class="d"></div><div class="st" data-u=""><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5"/></svg><span></span></div>';b.querySelector('.st').dataset.u=it.url;
-    b.querySelector('.t').textContent=it.title;b.querySelector('.n').textContent=it.note||'';b.querySelector('.d').textContent='Added '+fmt(it.added);applySt(b.querySelector('.st'));
+    b.querySelector('.t').textContent=it.title;b.querySelector('.n').textContent=it.note||'';const up=(srv[it.url]||{}).modified||it.updated;b.querySelector('.d').innerHTML='<div></div>'+(up?'<div></div>':'');b.querySelector('.d').children[0].textContent='Added '+fmt(it.added);if(up)b.querySelector('.d').children[1].textContent='Updated '+fmt(up);applySt(b.querySelector('.st'));
     b.onclick=()=>sheet(it);c.appendChild(b)}
   const ap=data.app;if(ap&&ap.url){const a=document.createElement('a');a.className='card app';a.href=ap.url;a.style.textDecoration='none';a.innerHTML='<div class="t"></div><div class="n"></div>';a.querySelector('.t').textContent=ap.title||'Origin Demo app';a.querySelector('.n').textContent=ap.note||'';c.appendChild(a)}
 }
@@ -113,6 +113,6 @@ async function check(){try{srv=(await (await fetch('status.json?'+Date.now())).j
   const changed=JSON.stringify(next)!==JSON.stringify(res);res=next;
   if(changed&&sortBy==='live')render();else document.querySelectorAll('.st').forEach(applySt)}
 $('sort').onchange=()=>{sortBy=$('sort').value;try{localStorage.setItem('sort',sortBy)}catch(e){}render()};
-const load=()=>fetch('links.json?'+Date.now()).then(r=>r.json()).then(j=>{data=j;render();check()}).catch(()=>{$('sub').textContent='Could not load the list. Check your connection.'});
+const load=()=>fetch('links.json?'+Date.now()).then(r=>r.json()).then(async j=>{data=j;try{srv=(await (await fetch('status.json?'+Date.now())).json()).links||{}}catch(e){}render();check()}).catch(()=>{$('sub').textContent='Could not load the list. Check your connection.'});
 load();setInterval(()=>{if(!document.hidden&&$('viewer').style.display!=='block')check()},30000);document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('viewer').style.display!=='block')load()});
 </script></body></html>
