@@ -126,7 +126,7 @@ $('aSafari').onclick=()=>{seen[cur.id]=1;save();setTimeout(()=>{$('wrap2').style
 
 (function(){const f=document.getElementById('topfade');const u=()=>f.classList.toggle('on',(window.scrollY||document.documentElement.scrollTop||document.body.scrollTop)>6);
 addEventListener('scroll',u,{passive:true});document.addEventListener('scroll',u,{passive:true});u()})();
-const V=22;let data=null;
+const V=23;let data=null;
 function render(){
   if(!data)return;const g=(data.groups||{})[group]||(data.groups||{}).everyone||{title:'Prototypes',items:[]};
   $('h').textContent=g.title||'Prototypes';
