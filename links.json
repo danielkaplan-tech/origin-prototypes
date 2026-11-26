@@ -96,26 +96,28 @@
         },
         {
           "id": "ai-bot-navigation",
-          "title": "Product: AI bot navigation",
-          "note": "The AI button opens a card of your agents, built on the new navigation.",
+          "title": "Product: Bot and customization",
+          "note": "The AI button opens a card of your agents, and you can rearrange and hide your cards.",
           "url": "https://pr-design-atlas-nav-ai-20321.demo.useorigin.com/",
           "added": "2026-11-26T09:28:06-05:00",
           "account": "full_demo",
           "icon": "icons/ai-bot-navigation.png?v=23",
           "changes": [
-            "Builds on the Navigation prototype, with the same glass bottom bar",
-            "The AI button is its own glass circle beside the bar, with a dot when an agent has news",
-            "Tapping it opens a floating card of agent conversations above the nav, over a dark veil",
-            "The page's own agent comes first, then agents with news",
-            "Rows show the avatar, name, time, unread dot and latest message, and expand to show the whole message",
+            "Builds on Navigation, with the same glass bottom bar",
+            "The AI button is its own glass circle beside the bar, with a white dot when an agent has news",
+            "Tap it to open a floating card of your agents above the nav, and talk to an agent right in the card",
             "An Ask pill with a mic sends your question to the right agent",
-            "The card springs open out of the AI button, like an iOS Control Center tile",
-            "Agent chats use Coin's header, buttons, input bar and bubbles"
+            "Every card shows its own agent where the AI sparkle was. Tap it to open that agent's conversation",
+            "Hold a tab to rearrange the nav, and the side menu follows your order",
+            "Hold any card on Home, Spend and Invest to move it, or throw it off the side to hide it, with Undo",
+            "Edit at the bottom of a page: switch each card or its agent on or off, then Save, or Reset",
+            "Card titles lose their caret, and a View button sits at the bottom of the card",
+            "The agents card springs open out of the AI button, like an iOS Control Center tile"
           ]
         }
       ]
     }
   },
-  "version": 23,
+  "version": 24,
   "footer": []
 }
